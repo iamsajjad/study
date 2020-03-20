@@ -14,6 +14,12 @@ class TryCatch{
      catch(Exception e){
         System.out.println("Warning: Some Other exception");
      }
-   System.out.println("Out of try-catch block...");
+     /* Finally block will always execute
+       * even if there is no exception in try block
+       */
+    finally{
+	    System.out.println("This is finally block");
+    }  
+    System.out.println("Out of try-catch-finally");
   }
 }
