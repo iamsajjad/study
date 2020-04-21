@@ -1,29 +1,19 @@
-"""
 
-C = (P + k) % 26
-P = (C - k) % 26
+def multEncode(text, key, mod):
+    out = ""
+    print("C = (P * k) mode {}".format(26))
+    for i in text:
+        if i.isupper():
+            out += chr((ord(i) - 65 ) * key % mod + 65)
+        else:
+            out += chr((ord(i) - 97 ) * key % mod + 97)
+        print("{} = ({} * {}) mode 26 = {} = {}".format(i, ord(i.lower())-97, key, ord(out[-1].lower())-97, out[-1]))
 
-C = (P * k) % 26
-P = (C * ink) % 26
-
-C = (P * K1 + k2) % 26
-P = (C - k2 * ink1) % 26
-
-"""
-cce = lambda text, k: ''.join([chr((ord(i) + k) % 97) if i.isupper() else chr((ord(i) + k) % 122) for i in text])
-ccd = lambda text, k: ''.join([chr((ord(i) - k) % 97) if i.isupper() else chr((ord(i) - k) % 122) for i in text])
-
-x = cce("Sajjad", 1)
-print(x)
-print(ccd(x, 1))
-
-#***************************************************************************************************************
-
-def multEncode(text, key):
-    return ''.join([chr((ord(i) - 65 ) * key % 26 + 65) if i.isupper() else chr((ord(i) - 97 ) * key % 26 + 97)  for i in text])
+    return out
     
 def multDecode(text, key, mod):
 
+    print("P = (C * ink) % mode {}".format(26))
     def modIn(k, mod):
         try:
             return [i for i in range(mod) if i * k % mod == 1][0]
@@ -31,19 +21,18 @@ def multDecode(text, key, mod):
             return None
 
     inkey = modIn(key, mod)
-    return ''.join([chr((ord(i) - 65) * inkey % 26 + 65) if i.isupper() else chr((ord(i) - 97) * inkey % 26 + 97) for i in text])
+    out = ""
+    for i in text:
+        if i.isupper():
+            out += chr((ord(i) - 65 ) * inkey % mod + 65)
+        else:
+            out += chr((ord(i) - 97 ) * inkey % mod + 97)
+        print("{} = ({} * {}) mode 26 = {} = {}".format(i, ord(i.lower())-97, inkey, ord(out[-1].lower())-97, out[-1]))
+    return out
 
-x = multEncode("Security", 11)
+text, key, mod = "Security", 19, 26
+
+x = multEncode(text, key, mod)
 print(x)
-print(multDecode(x, 11, 26))
-
-#***************************************************************************************************************
-
-def multInverse(k, mode):
-    try:
-        return [i for i in range(mode) if i * k % mode == 1][0]
-    except:
-        return None
-
-print("multInv : " + str(multInverse(3, 26)))
+print(multDecode(x, key, 26))
 

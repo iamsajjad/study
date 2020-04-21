@@ -62,7 +62,7 @@ class Crypto:
 
 
 
-text = 'sajjad jawad is here !!'
+text = 'here !!'
 print(text)
 print(Crypto(text, key=23, exp=True).encode())
 code = Crypto(text, key=23).encode()
